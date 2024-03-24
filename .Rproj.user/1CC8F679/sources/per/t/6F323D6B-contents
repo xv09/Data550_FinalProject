@@ -1,0 +1,169 @@
+---
+title: "Data500 Final Project"
+author: "Xaviera Villarino"
+date: "2024-02-16"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(haven)
+#install.packages("skimr")
+library(skimr)
+library(janitor)
+```
+
+```{r, import sas file}
+data <- read_sas('amis8.sas7bdat')
+```
+
+```{r, set seed and sample size}
+n <- 500
+set.seed(seed = 123)
+```
+
+# Variables/Predictors of Interest
+age, race, education, stigma, income, prep use, region, rural/urban,
+insurance, food security
+
+
+TEST CAT
+```{r}
+tabyl(data, "testcat")
+```
+```{r}
+testcat.sim <- sample(c("less than annual","annual","greater than annual"),size = n, replace = TRUE,
+prob = c(0.4, 0.1, 0.5))
+tabyl(testcat.sim)
+```
+
+
+AGE
+```{r, check variables and create simulations}
+tabyl(data, '_agecat')
+```
+
+```{r, explicitely provide sampling probs for each category}
+age.sim <- sample(c("15-24","25-29","30-39","40+"),size = n, replace = TRUE,
+prob = c(0.1, 0.1, 0.2, 0.6))
+tabyl(age.sim)
+```
+RACE
+```{r, check variables and variable types}
+tabyl(data$newrace)
+```
+```{r}
+race.sim <- sample(c("non-Hispanic black","Hispanic","non-Hispanic white","Other,multiple,unknown"),size = n, replace = TRUE,
+prob = c(0.1, 0.1, 0.7, 0.1))
+tabyl(race.sim)
+```
+
+INCOME
+```{r}
+tabyl(data$income)
+```
+
+```{r}
+income.sim <- sample(c("$0-$19,999","$20,000-$39,999","$40,000-$74,999","$75,000+"),size = n, replace = TRUE,
+prob = c(0.08, 0.12, 0.2, 0.6))
+tabyl(income.sim)
+```
+EDUCATION
+```{r}
+tabyl(data$`_educat`)
+```
+```{r}
+education.sim <- sample(c("<HS diploma","HS diploma or equivalent","Some college or technical degree","College degree or postgraduate education"),size = n, replace = TRUE,
+prob = c(0.01, 0.09, 0.25, 0.65))
+tabyl(education.sim)
+```
+
+INSURANCE
+```{r}
+tabyl(data$`_inscat`)
+```
+```{r}
+insurance.sim <- sample(c("None","Private Only","Public Only","Other/Multiple"),size = n, replace = TRUE,
+prob = c(0.06, 0.7, 0.2, 0.04))
+tabyl(insurance.sim)
+```
+REGION
+```{r}
+tabyl(data$region)
+```
+```{r}
+region.sim <- sample(c("Northeast","Midwest","South","West"),size = n, replace = TRUE,
+prob = c(0.2, 0.2, 0.4, 0.2))
+tabyl(region.sim)
+```
+
+RURALITY
+```{r}
+tabyl(data$`_nchs_rural2013`)
+```
+```{r}
+rurality.sim <- sample(c("Large central metro","Large fringe metro","Medium metro","Small metro", "Micropolitan", "Non core"),size = n, replace = TRUE,
+prob = c(0.4, 0.2, 0.2, 0.08, 0.06, 0.06))
+tabyl(rurality.sim)
+```
+
+
+STIGMA
+```{r}
+tabyl(data$stigmaexp)
+```
+
+```{r}
+stigma.sim <- sample(c("No","Yes"),size = n, replace = TRUE,
+prob = c(0.6, 0.5))
+tabyl(stigma.sim)
+```
+
+FOOD SEC
+```{r}
+tabyl(data$FOOD_SEC)
+```
+
+```{r}
+foodsec.sim <- sample(c("No","Yes"),size = n, replace = TRUE,
+prob = c(0.8, 0.2))
+tabyl(foodsec.sim)
+```
+
+PREP USE
+```{r}
+tabyl(data$prep_used)
+```
+
+```{r}
+prepuse.sim <- sample(c("No","Yes"),size = n, replace = TRUE,
+prob = c(0.5, 0.5))
+tabyl(prepuse.sim)
+```
+
+# Compile simulated data
+```{r}
+data.sim <- data.frame(
+  id= 1:n,
+  age = age.sim,
+  race = race.sim,
+  income = income.sim,
+  education = education.sim,
+  prep = prepuse.sim,
+  stigma = stigma.sim,
+  rurality = rurality.sim,
+  food_sec = foodsec.sim,
+  region = region.sim,
+  insurance = insurance.sim,
+  testcat = testcat.sim)
+
+summary(data.sim)
+```
+
+```{r}
+save(data.sim, file = "simulateddata.Rdata")
+```
+
