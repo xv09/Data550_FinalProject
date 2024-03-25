@@ -1,5 +1,5 @@
 ---
-title: 'Final Project 2: R Markdown'
+title: 'Final Project R Markdown'
 author: "Xaviera Villarino"
 output: html_document
 params:
@@ -7,7 +7,6 @@ params:
 ---
 
 ```{r, set-chunk-opts, echo=FALSE, eval = params$production}
-suppressPackageStartupMessages(library(table1))
 library(knitr)
 
 opts_chunk$set(
@@ -21,7 +20,7 @@ The data set used in this project is one I simulated to be similar (but not exac
 The goal of this analysis is to obtain basic descriptive stats and create figures that allow us to better examine the distribution of participants in our study among the different testing frequencies/categories of the outcome and for all the predictors of interest. The 10 predictors/variables of interest with respect to HIV/STI testing frequency are: age, education, food security, income, insurance, pre-exposure prophylaxis (PrEP) use, race, Census region, rural/urban classification, and stigma.
 
 ```{r, load data from local directory}
-here::i_am("coding/FinalProject2RMarkdown.Rmd")
+here::i_am("coding/FinalProjectRMarkdown.Rmd")
 
 data <- readRDS(
   file = here::here("clean_data/simulated_data.rds")
@@ -30,34 +29,24 @@ data <- readRDS(
 
 # Table 1: Demographic Information of Study Population
 ```{r, create table 1}
-label(data$age) <- "Age (y)"
-label(data$race) <- "Race"
-label(data$income) <- "Household Income (/year)"
-label(data$education) <- "Highest Education Obtained"
-label(data$prep) <- "PrEP use in past 12 months"
-label(data$stigma) <- "Ever experienced stigma"
-label(data$rurality) <- "Rural/Urban Classification (NCHS 2013)"
-label(data$food_sec) <- "Experienced Food Insecurity"
-label(data$region) <- "Region"
-label(data$insurance) <- "Insurance Status"
+table1 <- readRDS(
+  file=here::here("table/table1.rds")
+)
 
-
-table1(~age + race + income + education + prep + stigma + rurality + food_sec + region + insurance | testcat, data=data)
+table1
 ```
 
 
 The table above (Table 1) is a table that depicts the distribution of sociodemographic factors of interest among the study population of 500 individuals. The majority of individuals in the study were non-Hispanic white men (69.4%), had a household income of $75,000+, a college degree or postgraduate education, live in a large central metro area in the Southern United States and have private insurance. Additionally, the majority of participants have used PrEP, reported never having experienced stigma, and reported never experiencing food insecurity.
 
 # Figure: Bar Chart of Participant Distribution by HIV/STI Testing Frequency
-```{r, bar chart}
-# Create Data Frame
-barchart_data <- data.frame(
-  name =c("Less than Annual Testing", "Annual Testing", "Greater than Annual Testing"), value=c(187, 48, 265)
-)
-```
+```{r}
+#| fig.align="center",
+#| out.width="600px"
 
-```{r, using barplot}
-barplot(height= barchart_data$value, names=barchart_data$name, xlab = "HIV Testing Frequency", ylab = "Number of Individuals (N=500)")
+knitr::include_graphics(
+  here::here("figure/barplot.jpeg")
+)
 ```
 
 The figure above is a simple bar chart depicting the distribution of study participants by HIV testing frequency. The testing frequency variable was created based on a survey question that assessed how many times the participants had gotten tested for HIV in the past two years. Those who reported testing 1 or less times in the past two years were classified as "less than annual testing",those who reported testing 2 times were classified as "annual testing" and those who reported testing 3 or more times were classified as "greater than annual testing".

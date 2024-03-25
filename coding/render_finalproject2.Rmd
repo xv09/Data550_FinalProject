@@ -1,9 +1,0 @@
-```{r}
-here::i_am("render_finalproject2.Rmd")
-
-library(here)
-library(rmarkdown)
-# rendering a report in production mode
-render("coding/FinalProject2RMarkdown.Rmd", output_dir=here("report"))
-```
-
