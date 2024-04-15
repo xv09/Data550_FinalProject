@@ -1,9 +1,14 @@
 # Data 550 Final Project
 
-> Part 4 Organization and GitHub Repository
-
 ------------------------------------------------------------------------
+## Producing Final Report
 
+ To produce final report
+  - download the project files on a local computer and save it in the desired location
+  - in terminal, `cd` into the project directory
+  - to synchronize package repository, type `MAKE INSTALL` into the terminal
+  - type/run `MAKE` in terminal to generate the final report html
+  
 ## Initial code description
 
 `coding/01_make_output1.R`
@@ -26,7 +31,4 @@
   - reads table and figure made by `coding/01_make_output1.R` and 
     `coding/02_make_output2.R`
     
-  To produce final report
-  - download the project files on a local computer and save it in the desired location
-  - in terminal, `cd` into the project directory
-  - type/run `MAKE` in terminal
+ 

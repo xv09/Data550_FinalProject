@@ -13,3 +13,7 @@ figure/barplot.jpeg: coding/02_make_output2.R clean_data/simulated_data.rds
 #clean
 clean:
 	rm -f figure/*.jpeg && rm -f table/*.rds && rm -f coding/*.html
+	
+.PHONY: install
+install:
+	Rscript -e "renv::restore(prompt=FALSE)"
