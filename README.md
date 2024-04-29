@@ -1,13 +1,15 @@
 # Data 550 Final Project
 
 ------------------------------------------------------------------------
-## Producing Final Report
+## Building Docker Image
+The Docker image called `finalprojectimage` can be built by running `Make project_image' in the Terminal or pulling the image from the public repository it lives in [here](https://hub.docker.com/repository/docker/xv09/finalprojectimage/general) using Docker pull command.
 
- To produce final report
-  - download the project files on a local computer and save it in the desired location
-  - in terminal, `cd` into the project directory
-  - to synchronize package repository, type `MAKE INSTALL` into the terminal
-  - type/run `MAKE` in terminal to generate the final report html
+## Running automated version of Docker image
+command
+Run the containerized code by typing `make final_report/FinalProjectRMarkdown.html` into the terminal. This command mounts a local directory called `report` to the container and allows for the retrieval of the final .html document titled `FinalProjectRMarkdown.html` that is produced.
+
+NOTE: this target was designed for a Mac/Linux OS. Windows systems using git bash may require an extra `/` at the start of a file path when mounting the directory.
+
   
 ## Initial code description
 
