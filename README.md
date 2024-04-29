@@ -8,7 +8,7 @@ The Docker image called `finalprojectimage` can be built by running `Make projec
 command
 Run the containerized code by typing `make final_report/FinalProjectRMarkdown.html` into the terminal. This command mounts a local directory called `report` to the container and allows for the retrieval of the final .html document titled `FinalProjectRMarkdown.html` that is produced.
 
-NOTE: this target was designed for a Mac/Linux OS. Windows systems using git bash may require an extra `/` at the start of a file path when mounting the directory.
+NOTE: this target was designed for a Mac/Linux OS. Windows systems using git bash may require an extra `/` at the start of a file path when mounting the directory. 
 
   
 ## Initial code description
